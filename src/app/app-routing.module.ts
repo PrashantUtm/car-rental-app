@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,6 +11,19 @@ const routes: Routes = [
     path:'',
     redirectTo: 'cars-list',
     pathMatch: 'full'
+  },
+  {
+    path: 'cars-list/:plateNumber',
+    loadChildren: () => import('./pages/car-details/car-details.module').then( m => m.CarDetailsPageModule)
+  },
+  {
+    path: 'book/:plateNumber',
+    loadChildren: () => import('./pages/book/book.module').then( m => m.BookPageModule),
+    canActivate: [ authGuard ]
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   }
 ];
 
