@@ -7,6 +7,72 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-button expand="full" class="book-button" (click)="book()">Book</ion-button>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="ion-margin-bottom">
+          <ion-icon name="car-outline" class="ion-margin-end"></ion-icon>
+          <ion-label>{{ car?.type }}</ion-label>
+        </div>
+        <div class="ion-margin-bottom">
+          <ion-icon name="settings-outline" class="ion-margin-end"></ion-icon>
+          <ion-label>{{ car?.transmission }}</ion-label>
+        </div>
+        <div class="ion-margin-bottom">
+          <ion-icon name="people-outline" class="ion-margin-end"></ion-icon>
+          <ion-label>{{ car?.capacity }}</ion-label>
+        </div>
+        <div class="ion-margin-bottom">
+          <ion-icon name="water-outline" class="ion-margin-end"></ion-icon>
+          <ion-label>{{ car?.fuel }}</ion-label>
+        </div>
+      </ion-col>
+      <ion-col>
+        <ion-img [src]="car?.photo"></ion-img>
+        <div class="ion-text-end ion-margin-end">
+          <h3>Rs. {{ car?.dailyRate }}</h3>
+          <p>per day</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-icon name="person-circle-outline" class="ion-margin-end"></ion-icon>
+        <ion-label>Owner</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <h3>{{ owner?.firstName }} {{ owner?.lastName }}</h3>
+        <div>
+          <ion-icon name="call-outline" class="ion-margin-end"></ion-icon>
+          <ion-label>{{ owner?.phoneNumber }}</ion-label>
+        </div>
+        <div>
+          <ion-icon name="mail-outline" class="ion-margin-end"></ion-icon>
+          <ion-label>{{ owner?.email }}</ion-label>
+        </div>
+        <div>
+          <ion-icon name="location-outline" class="ion-margin-end"></ion-icon>
+          <ion-label>{{ owner?.address }}</ion-label>
+        </div>
+      </div>
+    </ion-accordion>
+    <ion-accordion value="second">
+      <ion-item slot="header" color="light">
+        <ion-icon name="list-circle-outline" class="ion-margin-end"></ion-icon>
+        <ion-label>Notes</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">Second Content</div>
+    </ion-accordion>
+    <ion-accordion value="third">
+      <ion-item slot="header" color="light">
+        <ion-icon name="card-outline" class="ion-margin-end"></ion-icon>
+        <ion-label>Payment details</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">You will pay at pickup.</div>
+    </ion-accordion>
+  </ion-accordion-group>
 </ion-content>
+<ion-button expand="full" class="book-button" (click)="book()">Book</ion-button>

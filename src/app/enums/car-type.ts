@@ -1,7 +1,7 @@
 export enum CarType {
-    Hatchback,
-    SUV,
-    Sedan,
-    Truck,
-    Van
+    Hatchback = 'Hatchback',
+    SUV = 'SUV',
+    Sedan = 'Sedan',
+    Truck = 'Truck',
+    Van = 'Van'
 }

@@ -10,5 +10,6 @@ export interface Car {
     capacity: number,
     fuel: string,
     ownerId: string,
-    type: CarType
+    type: CarType,
+    notes?: string
 }

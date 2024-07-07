@@ -17,7 +17,8 @@ export class CarsService {
       ownerId: '1',
       transmission: 'manual',
       type: CarType.Sedan,
-      photo: 'https://toyotamauritius.com/sites/default/files/models/colors/5.png'
+      photo: 'https://toyotamauritius.com/sites/default/files/models/colors/5.png',
+      notes: 'This car is not suitable for going off road.'
     },
     {
       plateNumber: '2345',
