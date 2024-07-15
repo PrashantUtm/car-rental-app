@@ -14,7 +14,7 @@ export class CarsListPage implements OnInit {
   constructor(private carsService: CarsService) { }
 
   ngOnInit() {
-    this.carsList = this.carsService.getAllCars();
+    this.carsService.getAllCars().subscribe(cars => this.carsList = cars);
     console.log(this.carsList);
   }
 

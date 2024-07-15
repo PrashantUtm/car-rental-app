@@ -38,11 +38,13 @@ export class CarDetailsPage implements OnInit {
   ngOnInit() {
     const carPlateNumber = this.route.snapshot.paramMap.get('plateNumber');
     if (carPlateNumber) {
-      this.car = this.carsService.getCar(carPlateNumber);
-      console.log(this.car);
-      if (this.car) {
-        this.owner = this.usersService.getUser(this.car?.ownerId);
-      }
+      this.carsService.getCar(carPlateNumber).subscribe(car => {
+        this.car = car;
+        if (this.car) {
+          this.usersService.getUser(this.car?.ownerId).subscribe(user => this.owner = user);
+        }
+      });
+      
     }
   }
 

@@ -44,19 +44,7 @@
         <ion-label>Owner</ion-label>
       </ion-item>
       <div class="ion-padding" slot="content">
-        <h3>{{ owner?.firstName }} {{ owner?.lastName }}</h3>
-        <div>
-          <ion-icon name="call-outline" class="ion-margin-end"></ion-icon>
-          <ion-label>{{ owner?.phoneNumber }}</ion-label>
-        </div>
-        <div>
-          <ion-icon name="mail-outline" class="ion-margin-end"></ion-icon>
-          <ion-label>{{ owner?.email }}</ion-label>
-        </div>
-        <div>
-          <ion-icon name="location-outline" class="ion-margin-end"></ion-icon>
-          <ion-label>{{ owner?.address }}</ion-label>
-        </div>
+        <app-user-details [user]="owner"></app-user-details>
       </div>
     </ion-accordion>
     <ion-accordion value="second">

@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -45,9 +48,9 @@ export class UsersService {
     },
   ]
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
-  public getUser(username: string): User | undefined {
-    return this.users.find(u => u.username === username);
+  public getUser(username: string): Observable<User> {
+    return this.httpClient.get(`${environment.baseUrl}/users/${username}`) as Observable<User>;
   }
 }
