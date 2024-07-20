@@ -44,7 +44,7 @@
         <ion-label>Owner</ion-label>
       </ion-item>
       <div class="ion-padding" slot="content">
-        <app-user-details [user]="owner"></app-user-details>
+        <app-user-details [user]="owner" (locationClicked)="goToMaps($event)"></app-user-details>
       </div>
     </ion-accordion>
     <ion-accordion value="second">

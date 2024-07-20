@@ -51,4 +51,8 @@ export class CarDetailsPage implements OnInit {
   public book(): void {
     this.router.navigate(['/book', this.car?.plateNumber]);
   }
+
+  public goToMaps(address: string) : void {
+    console.log('car details page', address);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -8,9 +8,17 @@ import { User } from 'src/app/models/user';
 })
 export class UserDetailsComponent  implements OnInit {
   @Input() public user: User | undefined;
+  @Output() public locationClicked = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit() {}
 
+  public call() : void {
+    window.open(`tel:${this.user?.phoneNumber}`);
+  }
+
+  public locationButtonClicked() : void {
+    this.locationClicked.emit(this.user?.address);
+  }
 }

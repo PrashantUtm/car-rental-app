@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BookingsService } from 'src/app/services/bookings.service';
 
 @Component({
   selector: 'app-my-bookings',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyBookingsPage implements OnInit {
 
-  constructor() { }
+  constructor(private bookingsService: BookingsService) { }
 
   ngOnInit() {
+    this.bookingsService.getBookings().subscribe(bookings => console.log('bookings: ', bookings));
   }
 
 }

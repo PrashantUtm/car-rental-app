@@ -13,10 +13,10 @@ export class CarsService {
   constructor(private httpClient: HttpClient) { }
 
   public getAllCars() : Observable<Car[]> {
-    return this.httpClient.get(`${environment.baseUrl}/cars`) as Observable<Car[]>;
+    return this.httpClient.get(`${environment.baseUrl}/mocks/cars`) as Observable<Car[]>;
   }
 
   public getCar(plateNumber: string) : Observable<Car> {
-    return this.httpClient.get(`${environment.baseUrl}/cars/${plateNumber}`) as Observable<Car>;
+    return this.httpClient.get(`${environment.baseUrl}/mocks/cars/${plateNumber}`) as Observable<Car>;
   }
 }

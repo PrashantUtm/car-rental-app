@@ -21,8 +21,12 @@ export class LoginPage implements OnInit {
   }
 
   public login() : void {
-    if (this.authService.authenticate(this.username, this.password)) {
-      this.router.navigate(['/']);
+    if (this.username && this.username.trim() !== '' && this.password && this.password.trim() !== '') {
+      this.authService.authenticate(this.username, this.password).subscribe(authenticated => {
+        if (authenticated) {
+          this.router.navigate(['/']);
+        }
+      });
     }
   }
 

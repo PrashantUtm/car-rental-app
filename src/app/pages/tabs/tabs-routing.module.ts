@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
+import { authGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
       },
       {
         path: 'my-bookings',
-        loadChildren: () => import('../my-bookings/my-bookings.module').then( m => m.MyBookingsPageModule)
+        loadChildren: () => import('../my-bookings/my-bookings.module').then( m => m.MyBookingsPageModule),
+        canActivate: [ authGuard ]
       }
     ]
   }

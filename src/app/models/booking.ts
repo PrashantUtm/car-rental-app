@@ -1,9 +1,9 @@
 import { BookingStatus } from "../enums/booking-status";
 
 export interface Booking {
+    id: string,
     pickupDate: Date,
     dropOffDate: Date,
-    ownerId: string,
     customerId: string,
     carPlateNumber: string,
     totalPrice: number,
