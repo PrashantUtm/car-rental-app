@@ -9,7 +9,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/car-details/car-details.module').then( m => m.CarDetailsPageModule)
   },
   {
-    path: 'book/:plateNumber',
+    path: 'book/:plateNumber/:ownerId',
     loadChildren: () => import('./pages/book/book.module').then( m => m.BookPageModule),
     canActivate: [ authGuard ]
   },

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { BookPageRoutingModule } from './book-routing.module';
 
 import { BookPage } from './book.page';
+import { UserDetailsModule } from 'src/app/components/user-details/user-details.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { BookPage } from './book.page';
     FormsModule,
     IonicModule,
     BookPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UserDetailsModule
   ],
   declarations: [BookPage]
 })

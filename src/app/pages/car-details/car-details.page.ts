@@ -49,7 +49,7 @@ export class CarDetailsPage implements OnInit {
   }
 
   public book(): void {
-    this.router.navigate(['/book', this.car?.plateNumber]);
+    this.router.navigate(['/book', this.car?.plateNumber, this.car?.ownerId]);
   }
 
   public goToMaps(address: string) : void {

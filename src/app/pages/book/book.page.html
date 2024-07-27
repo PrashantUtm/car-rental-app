@@ -5,5 +5,31 @@
 </ion-header>
 
 <ion-content>
-  <ion-button (click)="confirm()">Confirm booking</ion-button>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Rent {{ car?.make }} {{ car?.model }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <app-user-details [user]="owner"></app-user-details>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Pickup</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="bookingForm">
+        <ion-input placeholder="Location" formControlName="pickupLocation"></ion-input>
+        <ion-datetime-button datetime="pickupDateTime"></ion-datetime-button>
+
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="pickupDateTime" formControlName="pickupDate"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+<ion-button (click)="confirm()">Confirm booking</ion-button>
