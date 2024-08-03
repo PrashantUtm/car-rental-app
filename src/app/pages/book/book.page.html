@@ -21,15 +21,46 @@
     <ion-card-content>
       <form [formGroup]="bookingForm">
         <ion-input placeholder="Location" formControlName="pickupLocation"></ion-input>
-        <ion-datetime-button datetime="pickupDateTime"></ion-datetime-button>
+        <div *ngIf="bookingForm?.get('pickupLocation')?.touched && bookingForm?.get('pickupLocation')?.invalid">
+          <ion-label color="danger">Location is required.</ion-label>
+        </div>
 
+        <ion-label>Date and Time</ion-label>
+        <ion-datetime-button datetime="pickupDateTime" class="datetime-button"></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime id="pickupDateTime" formControlName="pickupDate"></ion-datetime>
+            <ion-datetime id="pickupDateTime" formControlName="pickupDate" [min]="minimumPickupDate"></ion-datetime>
           </ng-template>
         </ion-modal>
+
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Drop off</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="bookingForm">
+        <ion-input placeholder="Location" formControlName="dropOffLocation"></ion-input>
+        <div *ngIf="bookingForm?.get('dropOffLocation')?.touched && bookingForm?.get('dropOffLocation')?.invalid">
+          <ion-label color="danger">Location is required.</ion-label>
+        </div>
+
+        <ion-label>Date and Time</ion-label>
+        <ion-datetime-button datetime="dropOffDateTime" class="datetime-button"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="dropOffDateTime" formControlName="dropOffDate" [min]="minimumDropOffDate"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+        <div *ngIf="invalidDates">
+          <ion-label color="danger">Pickup date cannot be bigger than drop off date.</ion-label>
+        </div>
       </form>
     </ion-card-content>
   </ion-card>
 </ion-content>
+<ion-label>Total Rs. {{ totalPrice }}</ion-label>
 <ion-button (click)="confirm()">Confirm booking</ion-button>

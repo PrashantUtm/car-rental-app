@@ -1,13 +1,43 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>myBookings</ion-title>
+    <ion-title>My Bookings</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="presentPopover($event)">
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">myBookings</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-popover #popover [isOpen]="isPopoverOpen" (didDismiss)="isPopoverOpen = false">
+    <ng-template>
+      <ion-button fill="clear" (click)="logout()">Logout</ion-button>
+    </ng-template>
+  </ion-popover>
+  <div *ngIf="!isAuthenticated">
+    You are not logged in.
+    <ion-button [routerLink]="['/login']">Go to login page.</ion-button>
+  </div>
+  <div *ngIf="isAuthenticated">
+    <ion-card *ngFor="let booking of bookings" #card>
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon [name]="getStatusIcon(booking.status)"></ion-icon>
+           {{ getStatusValue(booking.status) }}
+        </ion-card-title>
+        <ion-card-subtitle>
+          {{ booking.pickupDate | date: 'dd MMM yyyy hh:mm'}}
+          - {{ booking.dropOffDate | date: 'dd MMM yyyy hh:mm'}}
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p>
+          <ion-icon name="car-outline"></ion-icon> {{ booking.carPlateNumber }} 
+          <ion-icon name="cash-outline" class="ion-margin-start"></ion-icon> Rs. {{ booking.totalPrice }}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  
 </ion-content>

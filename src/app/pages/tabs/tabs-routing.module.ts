@@ -20,8 +20,7 @@ const routes: Routes = [
       },
       {
         path: 'my-bookings',
-        loadChildren: () => import('../my-bookings/my-bookings.module').then( m => m.MyBookingsPageModule),
-        canActivate: [ authGuard ]
+        loadChildren: () => import('../my-bookings/my-bookings.module').then( m => m.MyBookingsPageModule)
       }
     ]
   }

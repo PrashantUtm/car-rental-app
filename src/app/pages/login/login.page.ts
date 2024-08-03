@@ -18,15 +18,15 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService.logInOutEvent.subscribe(loggedIn => {
+      if (loggedIn)
+        this.router.navigate(['/']);
+    })
   }
 
   public login() : void {
     if (this.username && this.username.trim() !== '' && this.password && this.password.trim() !== '') {
-      this.authService.authenticate(this.username, this.password).subscribe(authenticated => {
-        if (authenticated) {
-          this.router.navigate(['/']);
-        }
-      });
+      this.authService.authenticate(this.username, this.password).subscribe();
     }
   }
 
