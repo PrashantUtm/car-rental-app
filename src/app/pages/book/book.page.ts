@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonBackButton, NavController } from '@ionic/angular';
 import { BookingStatus } from 'src/app/enums/booking-status';
 import { Car } from 'src/app/models/car';
 import { User } from 'src/app/models/user';
@@ -16,7 +16,8 @@ import { UsersService } from 'src/app/services/users.service';
   styleUrls: ['./book.page.scss'],
 })
 export class BookPage implements OnInit {
-
+  @ViewChild(IonBackButton, { static: false }) backButton: IonBackButton | undefined;
+  
   public bookingForm : FormGroup;
   public car: Car | undefined;
   public owner: User | undefined;
@@ -36,7 +37,8 @@ export class BookPage implements OnInit {
     private bookingsService: BookingsService,
     private usersService: UsersService,
     private carsService: CarsService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private navController: NavController
   ) { 
     const carPlateNumber = this.activatedRoute.snapshot.paramMap.get('plateNumber');
     this.ownerId = this.activatedRoute.snapshot.paramMap.get('ownerId') as string;
@@ -69,6 +71,37 @@ export class BookPage implements OnInit {
 
     this.bookingForm.get('pickupDate')?.valueChanges.subscribe(() => this.calculateTotalPrice());
     this.bookingForm.get('dropOffDate')?.valueChanges.subscribe(() => this.calculateTotalPrice());
+  }
+
+  ionViewDidEnter() : void {
+    if (this.backButton) {
+      this.backButton.onClick = async() => {
+        if (!this.bookingForm?.dirty) {
+          this.navController.back();
+        } else {
+          const alert = await this.alertController.create({
+            buttons: [ 
+              {
+                text: 'Stay',
+                role: 'cancel',
+                handler: () => {}
+              }, {
+                text: 'Continue',
+                role: 'confirm',
+                handler: () => {
+                  this.navController.back();
+                }
+              } 
+            ],
+            message: 'Changes will be lost',
+            header: 'Leave?',
+            
+          });
+          await alert.present();
+        }
+
+      }
+    }
   }
 
   public async confirm() : Promise<void> {
