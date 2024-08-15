@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NativeGeocoder } from '@awesome-cordova-plugins/native-geocoder/ngx';
+import { Geolocation } from '@capacitor/geolocation';
 import { AlertController, IonBackButton, NavController } from '@ionic/angular';
 import { BookingStatus } from 'src/app/enums/booking-status';
 import { Car } from 'src/app/models/car';
@@ -38,7 +40,8 @@ export class BookPage implements OnInit {
     private usersService: UsersService,
     private carsService: CarsService,
     private alertController: AlertController,
-    private navController: NavController
+    private navController: NavController,
+    private nativeGeocoder: NativeGeocoder
   ) { 
     const carPlateNumber = this.activatedRoute.snapshot.paramMap.get('plateNumber');
     this.ownerId = this.activatedRoute.snapshot.paramMap.get('ownerId') as string;
@@ -128,6 +131,20 @@ export class BookPage implements OnInit {
       });
       await alert.present();
     }
+  }
+
+  public async setCurrentLocation(controlName: string): Promise<void> {
+    const coords = await Geolocation.getCurrentPosition();
+    const latitude = coords.coords.latitude;
+    const longitude = coords.coords.longitude;
+
+    this.bookingForm.get(controlName)?.patchValue(`latitude: ${latitude}, longitude: ${longitude}`);
+
+    const result = await this.nativeGeocoder.reverseGeocode(latitude, longitude);
+    const firstResult = result[0];
+    const locationName = `${firstResult.subLocality}, ${firstResult.locality}, ${firstResult.countryName}`;
+
+    this.bookingForm.get(controlName)?.patchValue(locationName);
   }
 
   private getLocalIsoString(date: Date) : string {

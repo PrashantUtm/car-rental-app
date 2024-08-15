@@ -20,7 +20,7 @@
     <ion-button [routerLink]="['/login']">Go to login page.</ion-button>
   </div>
   <div *ngIf="isAuthenticated">
-    <ion-card *ngFor="let booking of bookings" #card>
+    <ion-card *ngFor="let booking of bookings" (click)="showBookingModal(booking)">
       <ion-card-header>
         <ion-card-title>
           <ion-icon [name]="getStatusIcon(booking.status)"></ion-icon>

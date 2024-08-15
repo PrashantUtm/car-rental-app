@@ -18,4 +18,8 @@ export class BookingsService {
   public createBooking(booking: Booking) : Observable<Booking> {
     return this.httpClient.post<Booking>(`${environment.baseUrl}/bookings`, booking);
   }
+
+  public updateBooking(booking: Booking): Observable<Booking> {
+    return this.httpClient.put<Booking>(`${environment.baseUrl}/bookings/${booking.id}`, booking);
+  }
 }

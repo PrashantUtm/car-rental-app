@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="dismiss()">Done</ion-button>
+    </ion-buttons>
+    <ion-title>Booking {{ booking.carPlateNumber }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <h1>{{ getStatusName(booking.status) }}</h1>
+  <div class="seperator">
+    <hr>
+  </div>
+  <div>
+    <h2>Pickup</h2>
+    <p>{{ booking.pickupLocation }}</p>
+    <p>{{ booking.pickupDate | date: 'd MMM yyyy hh:mm' }}</p>
+  </div>
+  <div>
+    <h2>Drop Off</h2>
+    <p>{{ booking.dropOffLocation }}</p>
+    <p>{{ booking.dropOffDate }}</p>
+  </div>
+  <div class="seperator">
+    <hr>
+  </div>
+  <div>
+    <h2>Payment</h2>
+    <p>Rs. {{ booking.totalPrice }}</p>
+    <p>Payment at pickup to {{ booking.ownerId }}</p>
+  </div>
+  <div class="seperator">
+    <hr>
+  </div>
+  <div *ngIf="booking.pickupState">
+    <h3><ion-icon name="images-outline"></ion-icon>Pick Up State</h3>
+    <ion-thumbnail *ngFor="let picture of booking.pickupState">
+      <img [src]="picture" />
+    </ion-thumbnail>
+    <ion-thumbnail (click)="updatePickupState()">
+      <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+    </ion-thumbnail>
+  </div>
+  <div class="seperator">
+    <hr>
+  </div>
+  <div *ngIf="booking.dropOffState">
+    <h3><ion-icon name="images-outline"></ion-icon>Drop off State</h3>
+    <ion-thumbnail *ngFor="let picture of booking.dropOffState">
+      <img [src]="picture" />
+    </ion-thumbnail>
+    <ion-thumbnail (click)="updateDropOffState()">
+      <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+    </ion-thumbnail>
+  </div>
+  <div class="seperator">
+    <hr>
+  </div>
+  <div class="ion-text-center">
+    <ion-button [disabled]="booking.status !== 3" (click)="updatePickupState()" color="success">Upload status at pickup</ion-button>
+  </div>
+  <div class="ion-text-center">
+    <ion-button [disabled]="booking.status !== 0" (click)="updateDropOffState()" color="warning">Upload status at drop off</ion-button>
+  </div>
+  <div class="ion-text-center">
+    <ion-button [disabled]="booking.status === 1 || booking.status === 2" (click)="cancelBooking()" color="danger">Cancel Booking</ion-button>
+  </div>
+</ion-content>

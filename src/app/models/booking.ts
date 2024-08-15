@@ -5,9 +5,12 @@ export interface Booking {
     pickupDate: Date,
     dropOffDate: Date,
     customerId: string,
+    ownerId: string,
     carPlateNumber: string,
     totalPrice: number,
     pickupLocation: string,
     dropOffLocation: string,
-    status: BookingStatus
+    status: BookingStatus,
+    pickupState?: string[],
+    dropOffState?: string[]
 }
